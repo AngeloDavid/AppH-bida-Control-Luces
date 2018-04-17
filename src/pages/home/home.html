@@ -1,0 +1,40 @@
+<ion-header >
+  <ion-navbar color="cabecera" >
+    <ion-title text-center>
+      PRINCIPAL
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="timer=!timer">
+        <ion-icon name="timer"></ion-icon> <span *ngIf="timer"> {{timerCount}}</span>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content     class="no-scroll"  text-center >
+  <ion-refresher (ionRefresh)="verificarIp($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pulse para actualizar"
+      refreshingSpinner="bubbles"
+      refreshingText="Actualizando">
+    </ion-refresher-content>
+
+  </ion-refresher>
+
+    <ion-item-group >
+      <div *ngFor="let luc of listPage;let j=index2 ">
+        <ion-item-divider style="color:#725b53;">{{luc.descp | uppercase}}</ion-item-divider>
+        <ion-item  *ngFor="let itemluces of luc.idLuces;let i = index" >
+          <ion-checkbox [disabled]="itemluces.disp" (click)="verificarTimer()"  [(ngModel)]="itemluces.temp" *ngIf="timer"  ></ion-checkbox>
+          <ion-icon  color="focos" name="ios-bulb-outline" item-start></ion-icon>
+          <ion-label>{{itemluces.title}}</ion-label>
+          <ion-toggle [disabled]="itemluces.disp" [checked]="itemluces.estado" (click)="prender(luc,i)"></ion-toggle>
+        </ion-item>
+      </div>
+    </ion-item-group>
+
+  <button ion-button large  round [disabled]="timerBotton"  *ngIf="timer" (click)="mostarTimer()">Temporizar</button>
+
+</ion-content>

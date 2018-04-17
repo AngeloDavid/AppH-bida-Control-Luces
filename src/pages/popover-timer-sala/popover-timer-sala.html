@@ -1,0 +1,21 @@
+<ion-content padding class="no-scroll"  text-center >
+  <h3 style="color:#725b53;">TIEMPO</h3>
+  <ion-grid>
+    <ion-row text-center>
+
+      <ion-col text-center>
+        <ion-datetime align-self-center displayFormat="mm:ss" pickerFormat="m s" cancelText="Atras" doneText="OK" [(ngModel)]="event.timestart"></ion-datetime>
+      </ion-col>
+      
+    </ion-row>
+    <ion-row>
+      <ion-col text-right>OFF</ion-col>
+      <ion-col>
+        <ion-toggle text-center [(ngModel)]="event.des"></ion-toggle>
+      </ion-col>
+      <ion-col text-left>ON</ion-col>
+    </ion-row>
+  </ion-grid>
+  <button ion-button round color="boton" *ngIf="event.startTimer"  [disabled]="event.timestart=='00:00:00'" (click)="start()"><ion-icon name="play"></ion-icon></button>
+  <button ion-button round color="boton" *ngIf="!event.startTimer" [disabled]="event.timestart=='00:00:00'"  (click)="cerrar()"><ion-icon name="square"></ion-icon></button>
+</ion-content>
