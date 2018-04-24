@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 /*
@@ -11,21 +11,25 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class LucesCtrlProvider {
 
+  headers;
+  options;
   constructor(public http: Http) {
     console.log('Hello LucesCtrlProvider Provider');
+    this.headers = new Headers();    
+    this.options = new RequestOptions({headers: this.headers});
   }
 
   prender(ip:string, onF:string, id:string){
     let urlP:string ="http://"+ip+"/"+onF+id;
     console.log(urlP);
-    return this.http.get(urlP).map( resp=>{return resp.json()});
+    return this.http.get(urlP,this.options).map( resp=>{return resp.json()});
   }
 
   comprobar(ip:string){
     let urlP:string ="http://"+ip+"/status";
 
     console.log(urlP);
-    return this.http.get(urlP).map(resp=>{return resp.text()});
+    return this.http.get(urlP,this.options).map(resp=>{return resp.text()});
   }
 
 
